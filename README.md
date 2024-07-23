@@ -4,4 +4,4 @@
 
 ## 참고 자료
 
-- [Storyblok & Astro (Official documentcial)](https://docs.astro.build/en/guides/cms/storyblok/)
+- [Storyblok & Astro (Official document)](https://docs.astro.build/en/guides/cms/storyblok/)
