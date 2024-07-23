@@ -4,11 +4,14 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 const { blok } = Astro.props as { blok: SbBlokData };
 ---
 
-<main {...storyblokEditable(blok)}>
+<section
+  {...storyblokEditable(blok)}
+  class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl"
+>
   {
     Array.isArray(blok.body) &&
       blok.body.map((blok) => {
         return <StoryblokComponent blok={blok} />;
       })
   }
-</main>
+</section>

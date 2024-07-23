@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
 import { loadEnv } from "vite";
 import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
+
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
 // https://astro.build/config
@@ -18,6 +20,24 @@ export default defineConfig({
         region: "us",
       },
     }),
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    icon({
+      include: {
+        tabler: ["*"],
+        "flat-color-icons": [
+          "template",
+          "gallery",
+          "approval",
+          "document",
+          "advertising",
+          "currency-exchange",
+          "voice-presentation",
+          "business-contact",
+          "database",
+        ],
+      },
+    }),
   ],
 });

@@ -1,0 +1,87 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import PageLayout from "../../layouts/PageLayout.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { Icon } from "astro-icon/components";
+import PostTags from "../../components/blog/PostTags.astro";
+
+export async function getStaticPaths() {
+  const sbApi = useStoryblokApi();
+
+  const { data } = await sbApi.get("cdn/stories", {
+    content_type: "blogPost",
+    version: "draft",
+  });
+
+  const stories = Object.values<{ slug: string }>(data.stories);
+
+  return stories.map((story) => {
+    return {
+      params: { slug: story.slug },
+    };
+  });
+}
+
+const sbApi = useStoryblokApi();
+const { slug } = Astro.params;
+const { data } = await sbApi.get(`cdn/stories/blog/${slug}`, {
+  version: "draft",
+});
+
+const story: Story = data.story;
+
+const post: Post = {
+  title: story.content.title,
+  date: new Date(
+    story.published_at ? story.published_at : story.created_at
+  ).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  }),
+  description: story.content.description,
+  slug: story.slug,
+  tags: story.tag_list,
+};
+---
+
+<PageLayout>
+  <section class="py-8 sm:py-16 lg:py-20 mx-auto">
+    <article>
+      <header>
+        <div
+          class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center"
+        >
+          <p>
+            <Icon
+              name="tabler:clock"
+              class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400"
+            />
+            <time datetime={String(post.date)} class="inline-block">
+              {post.date}
+            </time>
+          </p>
+        </div>
+
+        <h1
+          class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
+        >
+          {post.title}
+        </h1>
+
+        <p
+          class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify"
+        >
+          {post.description}
+        </p>
+
+        <div
+          class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row"
+        >
+          <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
+        </div>
+      </header>
+      <StoryblokComponent blok={story.content} />
+    </article>
+  </section>
+</PageLayout>

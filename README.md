@@ -4,4 +4,5 @@
 
 ## 참고 자료
 
-- [Storyblok & Astro (Official document)](https://docs.astro.build/en/guides/cms/storyblok/)
+- Storyblok & Astro 연동: [Storyblok & Astro (Official document)](https://docs.astro.build/en/guides/cms/storyblok/)
+- 샘플 사이트 테마: [AstroWind](https://astro.build/themes/details/astrowind)

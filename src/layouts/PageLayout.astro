@@ -1,0 +1,13 @@
+---
+import Header from "../components/widgets/Header.astro";
+import Layout from "./Layout.astro";
+---
+
+<Layout>
+  <slot name="header">
+    <Header isSticky showToggleTheme />
+  </slot>
+  <main>
+    <slot />
+  </main>
+</Layout>
