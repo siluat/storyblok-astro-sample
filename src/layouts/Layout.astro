@@ -4,6 +4,7 @@ import "../assets/styles/tailwind.css";
 import ApplyColorMode from "../components/common/ApplyColorMode.astro";
 import BasicScripts from "../components/common/BasicScripts.astro";
 import CustomStyles from "../components/CustomStyles.astro";
+import Favicons from "../components/Favicons.astro";
 ---
 
 <html lang="ko" class="2xl:text-[20px]">
@@ -12,7 +13,8 @@ import CustomStyles from "../components/CustomStyles.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Storyblok & Astro Sample</title>
+    <title>리카짱로그</title>
+    <Favicons />
     <CustomStyles />
     <ApplyColorMode />
   </head>
