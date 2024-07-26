@@ -23,6 +23,7 @@ const posts = data.stories.map((story: Story): Post => {
     description: story.content.description,
     slug: story.slug,
     tags: story.tag_list,
+    thumbnail: story.content.thumbnail?.filename || undefined,
   };
 });
 

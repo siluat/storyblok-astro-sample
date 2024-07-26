@@ -4,6 +4,7 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import { Icon } from "astro-icon/components";
 import PostTags from "../../components/blog/PostTags.astro";
+import Image from "../../components/common/Image.astro";
 
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
@@ -42,6 +43,7 @@ const post: Post = {
   description: story.content.description,
   slug: story.slug,
   tags: story.tag_list,
+  thumbnail: story.content.thumbnail?.filename || undefined,
 };
 ---
 
@@ -80,6 +82,26 @@ const post: Post = {
         >
           <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
         </div>
+
+        {
+          post.thumbnail ? (
+            <Image
+              src={post.thumbnail}
+              class="max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md bg-gray-400 dark:bg-slate-700"
+              widths={[400, 900]}
+              sizes="(max-width: 900px) 400px, 900px"
+              alt={post?.title || ""}
+              width={900}
+              height={506}
+              loading="eager"
+              decoding="async"
+            />
+          ) : (
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+              <div class="border-t dark:border-slate-700" />
+            </div>
+          )
+        }
       </header>
       <StoryblokComponent blok={story.content} />
     </article>

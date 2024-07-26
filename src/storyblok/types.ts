@@ -4,6 +4,9 @@ type Story = {
   content: {
     title: string;
     description: string;
+    thumbnail?: {
+      filename: string;
+    };
   };
   slug: string;
   tag_list: string[];
@@ -15,4 +18,5 @@ type Post = {
   description: string;
   slug: string;
   tags?: string | string[];
+  thumbnail?: string;
 };
